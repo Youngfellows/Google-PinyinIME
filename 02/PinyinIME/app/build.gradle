@@ -24,12 +24,33 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            storeFile file('PinyinIME.jks')
+            storePassword 'shishuo'
+            keyAlias = 'PinyinIME'
+            keyPassword 'shishuo'
+        }
+        debug {
+            storeFile file('PinyinIME.jks')
+            storePassword 'shishuo'
+            keyAlias = 'PinyinIME'
+            keyPassword 'shishuo'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
+
+
 
     externalNativeBuild {
         cmake {
