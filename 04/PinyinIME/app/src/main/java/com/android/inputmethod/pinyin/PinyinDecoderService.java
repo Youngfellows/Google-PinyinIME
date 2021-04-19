@@ -36,6 +36,7 @@ import android.util.Log;
  * service so that both IME and IME-syncer can use it.
  */
 public class PinyinDecoderService extends Service {
+    private String TAG = this.getClass().getSimpleName();
     native static boolean nativeImOpenDecoder(byte fn_sys_dict[],
             byte fn_usr_dict[]);
 
@@ -150,6 +151,7 @@ public class PinyinDecoderService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "onCreate:: ");
         mUsr_dict_file = getFileStreamPath("usr_dict.dat").getPath();
         // This is a hack to make sure our "files" directory has been
         // created.
