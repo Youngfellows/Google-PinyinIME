@@ -24,6 +24,7 @@ import android.graphics.Paint.FontMetricsInt;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -334,6 +335,7 @@ public class BalloonHint extends PopupWindow {
     }
 
     private class BalloonView extends View {
+        private String TAG = this.getClass().getSimpleName();
         /**
          * Suspension points used to display long items.
          */
@@ -451,6 +453,7 @@ public class BalloonHint extends PopupWindow {
                 int fontHeight = mFmi.bottom - mFmi.top;
                 float marginY = (height - fontHeight) / 2.0f;
                 float y = marginY - mFmi.top;
+                Log.d(TAG, "onDraw:: labelToDraw:" + labelToDraw);
                 canvas.drawText(labelToDraw, x, y, mPaintLabel);
             }
         }

@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -36,6 +37,7 @@ import android.widget.ViewFlipper;
  * The top container to host soft keyboard view(s).
  */
 public class SkbContainer extends RelativeLayout implements OnTouchListener {
+    private String TAG = this.getClass().getSimpleName();
     /**
      * For finger touch, user tends to press the bottom part of the target key,
      * or he/she even presses the area out of it, so it is necessary to make a
@@ -180,7 +182,7 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
 
     public SkbContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
-
+        Log.d(TAG, "SkbContainer:: ");
         mEnvironment = Environment.getInstance();
 
         mLongPressTimer = new LongPressTimer(this);
@@ -420,6 +422,7 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
                 MeasureSpec.EXACTLY);
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(measuredHeight,
                 MeasureSpec.EXACTLY);
+        Log.d(TAG, "onMeasure:: widthMeasureSpec:" + widthMeasureSpec + ",heightMeasureSpec:" + heightMeasureSpec);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 

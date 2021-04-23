@@ -23,6 +23,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetricsInt;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -32,6 +33,7 @@ import android.view.ViewGroup.LayoutParams;
  * syllables and the Chinese string for the selected syllables.)
  */
 public class ComposingView extends View {
+    private String TAG = this.getClass().getSimpleName();
     /**
      * <p>
      * There are three statuses for the composing view.
@@ -228,6 +230,7 @@ public class ComposingView extends View {
         mHlDrawable.draw(canvas);
 
         String splStr = mDecInfo.getOrigianlSplStr().toString();
+        Log.d(TAG, "onDraw:: splStr:"+splStr);
         canvas.drawText(splStr, 0, splStr.length(), x, y, mPaint);
     }
 
@@ -274,6 +277,7 @@ public class ComposingView extends View {
 
                 oriPos = cursorPos;
             }
+            Log.d(TAG, "drawForPinyin:: cmpsStr:" + cmpsStr);
             canvas.drawText(cmpsStr, oriPos, cmpsStr.length(), x, y, mPaint);
         }
     }
