@@ -245,6 +245,7 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
 
     public void updateInputMode() {
         int skbLayout = mInputModeSwitcher.getSkbLayout();
+        Log.d(TAG, "updateInputMode:: mSkbLayout:" + mSkbLayout + ",skbLayout:" + skbLayout);
         if (mSkbLayout != skbLayout) {
             mSkbLayout = skbLayout;
             updateSkbLayout();
@@ -262,6 +263,7 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
     }
 
     private void updateSkbLayout() {
+        Log.d(TAG, "updateSkbLayout:: ");
         int screenWidth = mEnvironment.getScreenWidth();
         int keyHeight = mEnvironment.getKeyHeight();
         int skbHeight = mEnvironment.getSkbHeight();
@@ -277,26 +279,31 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
 
         switch (mSkbLayout) {
         case R.xml.skb_qwerty:
+            Log.d(TAG, "updateSkbLayout:: R.xml.skb_qwerty");
             majorSkb = skbPool.getSoftKeyboard(R.xml.skb_qwerty,
                     R.xml.skb_qwerty, screenWidth, skbHeight, mContext);
             break;
 
         case R.xml.skb_sym1:
+            Log.d(TAG, "updateSkbLayout:: R.xml.skb_sym1");
             majorSkb = skbPool.getSoftKeyboard(R.xml.skb_sym1, R.xml.skb_sym1,
                     screenWidth, skbHeight, mContext);
             break;
 
         case R.xml.skb_sym2:
+            Log.d(TAG, "updateSkbLayout:: R.xml.skb_sym2");
             majorSkb = skbPool.getSoftKeyboard(R.xml.skb_sym2, R.xml.skb_sym2,
                     screenWidth, skbHeight, mContext);
             break;
 
         case R.xml.skb_smiley:
+            Log.d(TAG, "updateSkbLayout:: R.xml.skb_smiley");
             majorSkb = skbPool.getSoftKeyboard(R.xml.skb_smiley,
                     R.xml.skb_smiley, screenWidth, skbHeight, mContext);
             break;
 
         case R.xml.skb_phone:
+            Log.d(TAG, "updateSkbLayout:: R.xml.skb_phone");
             majorSkb = skbPool.getSoftKeyboard(R.xml.skb_phone,
                     R.xml.skb_phone, screenWidth, skbHeight, mContext);
             break;

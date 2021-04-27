@@ -19,12 +19,14 @@ package com.android.inputmethod.pinyin;
 import com.android.inputmethod.pinyin.SoftKeyboard.KeyRow;
 
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 /**
  * Switcher used to switching input mode between Chinese, English, symbol,etc.
  */
 public class InputModeSwitcher {
+    private String TAG = this.getClass().getSimpleName();
     /**
      * User defined key code, used by soft keyboard.
      */
@@ -419,17 +421,23 @@ public class InputModeSwitcher {
 
     public int getSkbLayout() {
         int layout = (mInputMode & MASK_SKB_LAYOUT);
+        Log.d(TAG, "getSkbLayout:: mInputMode:" + mInputMode + ",layout:" + layout);
 
         switch (layout) {
         case MASK_SKB_LAYOUT_QWERTY:
+            Log.d(TAG, "getSkbLayout:: MASK_SKB_LAYOUT_QWERTY");
             return R.xml.skb_qwerty;
         case MASK_SKB_LAYOUT_SYMBOL1:
+            Log.d(TAG, "getSkbLayout:: MASK_SKB_LAYOUT_SYMBOL1");
             return R.xml.skb_sym1;
         case MASK_SKB_LAYOUT_SYMBOL2:
+            Log.d(TAG, "getSkbLayout:: MASK_SKB_LAYOUT_SYMBOL2");
             return R.xml.skb_sym2;
         case MASK_SKB_LAYOUT_SMILEY:
+            Log.d(TAG, "getSkbLayout:: MASK_SKB_LAYOUT_SMILEY");
             return R.xml.skb_smiley;
         case MASK_SKB_LAYOUT_PHONE:
+            Log.d(TAG, "getSkbLayout:: MASK_SKB_LAYOUT_PHONE");
             return R.xml.skb_phone;
         }
         return 0;
@@ -571,6 +579,7 @@ public class InputModeSwitcher {
 
     // Return the icon to update.
     public int requestInputWithSkb(EditorInfo editorInfo) {
+        Log.d(TAG, "requestInputWithSkb:: ");
         mShortMessageField = false;
 
         int newInputMode = MODE_SKB_CHINESE;
@@ -709,6 +718,8 @@ public class InputModeSwitcher {
 
     private void saveInputMode(int newInputMode) {
         mPreviousInputMode = mInputMode;
+        Log.d(TAG, "saveInputMode:: newInputMode:" + newInputMode + ",mPreviousInputMode:" + mPreviousInputMode);
+        //Log.w(TAG, Log.getStackTraceString(new IllegalArgumentException("saveInputMode:: newInputMode:" + newInputMode + ",mPreviousInputMode:" + mPreviousInputMode)));
         mInputMode = newInputMode;
 
         int skbLayout = (mInputMode & MASK_SKB_LAYOUT);
