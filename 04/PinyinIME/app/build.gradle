@@ -10,6 +10,8 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         applicationId "com.android.inputmethod.pinyin"
+        versionCode 9001144
+        versionName "9.0011.44"
 
         externalNativeBuild {
             cmake {
@@ -19,10 +21,35 @@ android {
         }
     }
 
+
+    signingConfigs {
+        release {
+            storeFile file('..\\keystore\\aosp-releasekey.jks')
+            storePassword 'android'
+            keyPassword 'android'
+            keyAlias = 'AOSP Release'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        debug {
+            storeFile file('..\\keystore\\aosp-releasekey.jks')
+            storePassword 'android'
+            keyPassword 'android'
+            keyAlias = 'AOSP Release'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -53,6 +80,21 @@ android {
                 groovy.xml.XmlUtil.serialize(parsedXml, new FileOutputStream(imlFile))
             } catch (FileNotFoundException e) {
                 // nop, iml not found
+            }
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (buildType.name == 'release' || buildType.name == 'debug') {
+                    //def createTime = new Date().format("YYYY-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
+                    def createTime = new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("GMT+08:00"))
+                    //apk名字-版本号-版本名称-生成时间.apk
+                    outputFileName = "PinyinIME" + defaultConfig.versionName + "_" + buildType.name + "_" + createTime + ".apk"
+                    //outputFileName = "MultiPinyinIME.apk"
+                }
             }
         }
     }

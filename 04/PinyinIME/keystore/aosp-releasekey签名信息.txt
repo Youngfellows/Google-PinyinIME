@@ -1,0 +1,30 @@
+			
+一、获取签名信息	
+	1、生产jks签名文件
+		 cd到C:\Program Files\Java\jdk1.6.0_10\bin,执行
+		 keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore android.keystore 
+		 keytool -genkey -alias debug.keystore -keyalg RSA -validity 20000 -keystore debug.keystore 
+
+	2、查看sha1
+		cd到keystore的目录
+		打开terminal或者cmd进入到keystore目录下，然后在终端中输入
+		 keytool -v -list -keystore key.jks
+		 (也可以是keytool -v -list -keystore debug.keystore) 命令即可查看调试环境下的MD5与SHA1
+
+
+二、查看三方应用或是系统应用签名
+	1、解压apk，将其中META-INF文件夹解压出来，
+	2、得到其中的CERT.RSA文件，
+	3、通过执行keytool 命令获取获取
+		keytool -printcert -file CERT.RSA
+		
+三、AOSP签名信息
+	    newsConfig {
+            keyAlias 'AOSP Release'
+            keyPassword 'android'
+            storeFile file('aosp-releasekey.jks')
+            storePassword 'android'
+        }
+		
+	查看AOSP签名信息
+	keytool -v -list -keystore aosp-releasekey.jks
