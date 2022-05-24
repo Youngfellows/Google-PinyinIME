@@ -1227,8 +1227,8 @@ public class PinyinIME extends InputMethodService {
                                 launchSettings();
                                 break;
                             case 1:
-                                InputMethodManager.getInstance()
-                                        .showInputMethodPicker();
+//                                InputMethodManager.getInstance()
+//                                        .showInputMethodPicker();
                                 break;
                         }
                     }

@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     aaptOptions {
         noCompress 'dat'
     }
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 30
         applicationId "com.android.inputmethod.pinyin"
-        versionCode 9001144
-        versionName "9.0011.44"
+        versionCode 9001146
+        versionName "9.0011.46"
 
         externalNativeBuild {
             cmake {
@@ -92,8 +92,8 @@ android {
                     //def createTime = new Date().format("YYYY-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
                     def createTime = new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("GMT+08:00"))
                     //apk名字-版本号-版本名称-生成时间.apk
-                    outputFileName = "PinyinIME" + defaultConfig.versionName + "_" + buildType.name + "_" + createTime + ".apk"
-                    //outputFileName = "MultiPinyinIME.apk"
+                    //outputFileName = "PinyinIME" + defaultConfig.versionName + "_" + buildType.name + "_" + createTime + ".apk"
+                    outputFileName = "PinyinIME.apk"
                 }
             }
         }

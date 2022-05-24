@@ -180,9 +180,12 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
      */
     private int mXyPosTmp[] = new int[2];
 
+    private Context mContext;
+
     public SkbContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
         Log.d(TAG, "SkbContainer:: ");
+        this.mContext = context;
         mEnvironment = Environment.getInstance();
 
         mLongPressTimer = new LongPressTimer(this);
