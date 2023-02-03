@@ -227,7 +227,8 @@ public class InputModeSwitcher {
     /**
      * Used to remember recent mode to input language.
      */
-    private int mRecentLauageInputMode = MODE_SKB_CHINESE;
+    //private int mRecentLauageInputMode = MODE_SKB_CHINESE;
+    private int mRecentLauageInputMode = MODE_SKB_ENGLISH_LOWER;
 
     /**
      * Editor information of the current edit box.
@@ -533,8 +534,17 @@ public class InputModeSwitcher {
     // Return the icon to update.
     public int requestInputWithHkb(EditorInfo editorInfo) {
         mShortMessageField = false;
+        //boolean english = false;//是否使用中文输入模式
+        //int newInputMode = MODE_HKB_CHINESE;//默认是中文输入模式
         boolean english = true;//是否使用英文输入模式
-        int newInputMode = MODE_HKB_CHINESE;//默认是中文输入模式
+        int newInputMode = MODE_HKB_ENGLISH;//默认是英文文输入模式
+
+        if ((mRecentLauageInputMode & MASK_LANGUAGE) == MASK_LANGUAGE_CN) {
+            Log.i(TAG, "requestInputWithHkb:: Recent Lauage Input Mode is ZH ...");
+            english = false;
+        } else {
+            Log.i(TAG, "requestInputWithHkb:: Recent Lauage Input Mode is EN ...");
+        }
 
         switch (editorInfo.inputType & EditorInfo.TYPE_MASK_CLASS) {
         case EditorInfo.TYPE_CLASS_NUMBER:
@@ -754,6 +764,21 @@ public class InputModeSwitcher {
 
         if (!Environment.getInstance().hasHardKeyboard()) {
             mInputIcon = 0;
+        }
+    }
+
+    /**
+     * 首次启动根据系统语言设置最近的输入法语言输入模式
+     * @param isZhLanguage 是否是英文语言
+     *
+     */
+    public void setRecentLauageInputMode(boolean isZhLanguage) {
+        if (isZhLanguage) {
+            mRecentLauageInputMode = MODE_SKB_CHINESE;
+            Log.i(TAG, "setRecentLauageInputMode:: mRecentLauageInputMode,MODE_SKB_CHINESE");
+        } else {
+            mRecentLauageInputMode = MODE_SKB_ENGLISH_LOWER;
+            Log.i(TAG, "setRecentLauageInputMode: mRecentLauageInputMode,MODE_SKB_ENGLISH_LOWER");
         }
     }
 

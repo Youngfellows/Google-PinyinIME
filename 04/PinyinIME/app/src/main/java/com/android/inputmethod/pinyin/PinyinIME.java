@@ -196,6 +196,7 @@ public class PinyinIME extends InputMethodService {
 
         mEnvironment.onConfigurationChanged(getResources().getConfiguration(),
                 this);
+        mInputModeSwitcher.setRecentLauageInputMode(isZhLanguage());
     }
 
     @Override
@@ -1130,11 +1131,10 @@ public class PinyinIME extends InputMethodService {
     @Override
     public void onStartInput(EditorInfo editorInfo, boolean restarting) {
         if (mEnvironment.needDebug()) {
-            Log.d(TAG, "onStartInput " + " ccontentType: "
+            Log.w(TAG, "onStartInput " + " ccontentType: "
                     + String.valueOf(editorInfo.inputType) + " Restarting:"
                     + String.valueOf(restarting));
         }
-        isZhLanguage();
         updateIcon(mInputModeSwitcher.requestInputWithHkb(editorInfo));
         resetToIdleState(false);
     }
@@ -1142,7 +1142,7 @@ public class PinyinIME extends InputMethodService {
     @Override
     public void onStartInputView(EditorInfo editorInfo, boolean restarting) {
         if (mEnvironment.needDebug()) {
-            Log.d(TAG, "onStartInputView " + " contentType: "
+            Log.w(TAG, "onStartInputView " + " contentType: "
                     + String.valueOf(editorInfo.inputType) + " Restarting:"
                     + String.valueOf(restarting));
         }
