@@ -17,6 +17,7 @@
 package com.android.inputmethod.pinyin;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 /**
  * Class for soft keys which defined in the keyboard xml file. A soft key can be
@@ -25,6 +26,8 @@ import android.graphics.drawable.Drawable;
  * @see com.android.inputmethod.pinyin.SoftKeyToggle
  */
 public class SoftKey {
+    private String TAG = this.getClass().getSimpleName();
+
     protected static final int KEYMASK_REPEAT = 0x10000000;
     protected static final int KEYMASK_BALLOON = 0x20000000;
 
@@ -95,7 +98,7 @@ public class SoftKey {
             boolean balloon) {
         mKeyCode = keyCode;
         mKeyLabel = label;
-
+        Log.d(TAG, "setKeyAttribute:: 1,mKeyMask=" + mKeyMask + ",keyCode=" + keyCode + ",label=" + label + ",repeat=" + repeat + ",balloon=" + balloon);
         if (repeat) {
             mKeyMask |= KEYMASK_REPEAT;
         } else {
@@ -107,6 +110,7 @@ public class SoftKey {
         } else {
             mKeyMask &= (~KEYMASK_BALLOON);
         }
+        Log.d(TAG, "setKeyAttribute:: 2,mKeyMask=" + mKeyMask);
     }
 
     public void setPopupSkbId(int popupSkbId) {
@@ -186,6 +190,7 @@ public class SoftKey {
     }
 
     public boolean needBalloon() {
+        Log.d(TAG, "needBalloon:: mKeyMask="+mKeyMask);
         return (mKeyMask & KEYMASK_BALLOON) != 0;
     }
 

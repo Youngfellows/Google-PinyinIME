@@ -43,12 +43,12 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 /**
@@ -1099,6 +1099,20 @@ public class PinyinIME extends InputMethodService {
         }
     }
 
+    public boolean isZhLanguage(){
+        Locale locale = getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+        String local = Locale.getDefault().toString();
+        String country =getResources().getConfiguration().locale.getCountry();
+        Log.i(TAG, "isChineseLanguage: language:"+ language+",local:"+local+",country:"+country);
+        if (language.endsWith("zh")) {
+            Log.i(TAG, "isZhLanguage:: zh");
+            return true;
+        }
+        Log.i(TAG, "isZhLanguage:: en ");
+        return false;
+    }
+
     @Override
     public View onCreateInputView() {
         if (mEnvironment.needDebug()) {
@@ -1120,6 +1134,7 @@ public class PinyinIME extends InputMethodService {
                     + String.valueOf(editorInfo.inputType) + " Restarting:"
                     + String.valueOf(restarting));
         }
+        isZhLanguage();
         updateIcon(mInputModeSwitcher.requestInputWithHkb(editorInfo));
         resetToIdleState(false);
     }
@@ -1131,6 +1146,7 @@ public class PinyinIME extends InputMethodService {
                     + String.valueOf(editorInfo.inputType) + " Restarting:"
                     + String.valueOf(restarting));
         }
+        isZhLanguage();
         updateIcon(mInputModeSwitcher.requestInputWithSkb(editorInfo));
         resetToIdleState(false);
         mSkbContainer.updateInputMode();

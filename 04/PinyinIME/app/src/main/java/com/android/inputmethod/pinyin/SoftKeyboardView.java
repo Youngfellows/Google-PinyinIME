@@ -28,6 +28,7 @@ import android.graphics.Paint.FontMetricsInt;
 import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -38,6 +39,8 @@ import android.view.View;
  * achieve better user experience.
  */
 public class SoftKeyboardView extends View {
+    private String TAG = this.getClass().getSimpleName();
+
     /**
      * The definition of the soft keyboard for the current this soft keyboard
      * view.
@@ -279,6 +282,7 @@ public class SoftKeyboardView extends View {
                     + (mSoftKeyDown.mBottom - keyYMargin)
                     - mBalloonOnKey.getHeight();
             mHintLocationToSkbContainer[1] += mOffsetToSkbContainer[1];
+            Log.d(TAG, "onKeyPress:: 1 ...");
             showBalloon(mBalloonOnKey, mHintLocationToSkbContainer, movePress);
         } else {
             mDirtyRect.union(mSoftKeyDown.mLeft, mSoftKeyDown.mTop,
@@ -318,6 +322,7 @@ public class SoftKeyboardView extends View {
             mHintLocationToSkbContainer[1] = getPaddingTop() + mSoftKeyDown.mTop
                     - mBalloonPopup.getHeight();
             mHintLocationToSkbContainer[1] += mOffsetToSkbContainer[1];
+            Log.d(TAG, "onKeyPress:: 2 ...");
             showBalloon(mBalloonPopup, mHintLocationToSkbContainer, movePress);
         } else {
             mBalloonPopup.delayedDismiss(0);

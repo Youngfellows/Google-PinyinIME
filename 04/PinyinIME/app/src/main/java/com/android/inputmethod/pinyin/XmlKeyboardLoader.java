@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
@@ -33,6 +34,7 @@ import org.xmlpull.v1.XmlPullParserException;
  * files.
  */
 public class XmlKeyboardLoader {
+    private String TAG = this.getClass().getSimpleName();
     /**
      * The tag used to define an xml-based soft keyboard template.
      */
@@ -407,7 +409,7 @@ public class XmlKeyboardLoader {
                         // Update the key position for the key.
                         mKeyXPos = getFloat(xrp, XMLATTR_START_POS_X, 0);
                         mKeyYPos = getFloat(xrp, XMLATTR_START_POS_Y, 0);
-
+                        Log.w(TAG, "loadSkbTemplate:: sssssssssssss");
                         SoftKey softKey = getSoftKey(xrp, attrKey);
                         if (null == softKey) return null;
                         mSkbTemplate.addDefaultKey(keyId, softKey);
@@ -546,6 +548,7 @@ public class XmlKeyboardLoader {
                             if (null != codeArr) {
                                 keyCode = Integer.valueOf(codeArr[i]);
                             }
+                            Log.i(TAG, "loadKeyboard:: ------");
                             softKey.setKeyAttribute(keyCode, labelArr[i],
                                     attrKeys.repeat, attrKeys.balloon);
 
@@ -581,6 +584,7 @@ public class XmlKeyboardLoader {
                         if (keyId >= 0) {
                             softKey = mSkbTemplate.getDefaultKey(keyId);
                         } else {
+                            Log.w(TAG, "loadKeyboard:: hhhhhhhhhhhhhhh");
                             softKey = getSoftKey(xrp, attrKey);
                         }
                         if (null == softKey) return null;
@@ -682,7 +686,7 @@ public class XmlKeyboardLoader {
         } else {
             softKey = new SoftKey();
         }
-
+        Log.i(TAG, "getSoftKey:: ^^^^^^^");
         // Set the normal state
         softKey.setKeyAttribute(keyCode, keyLabel, attrKey.repeat,
                 attrKey.balloon);

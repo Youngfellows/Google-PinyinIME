@@ -533,8 +533,8 @@ public class InputModeSwitcher {
     // Return the icon to update.
     public int requestInputWithHkb(EditorInfo editorInfo) {
         mShortMessageField = false;
-        boolean english = false;
-        int newInputMode = MODE_HKB_CHINESE;
+        boolean english = true;//是否使用英文输入模式
+        int newInputMode = MODE_HKB_CHINESE;//默认是中文输入模式
 
         switch (editorInfo.inputType & EditorInfo.TYPE_MASK_CLASS) {
         case EditorInfo.TYPE_CLASS_NUMBER:
@@ -559,7 +559,9 @@ public class InputModeSwitcher {
         if (english) {
             // If the application request English mode, we switch to it.
             newInputMode = MODE_HKB_ENGLISH;
+            Log.i(TAG, "requestInputWithHkb:: MODE_HKB_ENGLISH ...");
         } else {
+            //使用保存的默认上次输入法中英文输入模式
             // If the application do not request English mode, we will
             // try to keep the previous mode to input language text.
             // Because there is not soft keyboard, we need discard all
@@ -567,10 +569,17 @@ public class InputModeSwitcher {
             // mode.
             if ((mRecentLauageInputMode & MASK_LANGUAGE) == MASK_LANGUAGE_CN) {
                 newInputMode = MODE_HKB_CHINESE;
+                Log.i(TAG, "requestInputWithHkb:: restore,MODE_HKB_CHINESE ...");
             } else {
                 newInputMode = MODE_HKB_ENGLISH;
+                Log.i(TAG, "requestInputWithHkb:: restore,MODE_HKB_ENGLISH ...");
             }
+
+            //不使用保存的默认上次输入法中英文输入模式,屏蔽掉上面的代码
+            //newInputMode = MODE_HKB_CHINESE;
+            //Log.i(TAG, "requestInputWithHkb:: MODE_HKB_CHINESE ...");
         }
+        Log.i(TAG, "requestInputWithHkb:: newInputMode=" + newInputMode);
         mEditorInfo = editorInfo;
         saveInputMode(newInputMode);
         prepareToggleStates(false);
@@ -588,9 +597,11 @@ public class InputModeSwitcher {
         case EditorInfo.TYPE_CLASS_NUMBER:
         case EditorInfo.TYPE_CLASS_DATETIME:
             newInputMode = MODE_SKB_SYMBOL1_EN;
+            Log.i(TAG, "requestInputWithSkb:: 1");
             break;
         case EditorInfo.TYPE_CLASS_PHONE:
             newInputMode = MODE_SKB_PHONE_NUM;
+            Log.i(TAG, "requestInputWithSkb:: 2");
             break;
         case EditorInfo.TYPE_CLASS_TEXT:
             int v = editorInfo.inputType & EditorInfo.TYPE_MASK_VARIATION;
@@ -600,6 +611,7 @@ public class InputModeSwitcher {
                     || v == EditorInfo.TYPE_TEXT_VARIATION_URI) {
                 // If the application request English mode, we switch to it.
                 newInputMode = MODE_SKB_ENGLISH_LOWER;
+                Log.i(TAG, "requestInputWithSkb:: 3");
             } else {
                 if (v == EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
                     mShortMessageField = true;
@@ -608,11 +620,14 @@ public class InputModeSwitcher {
                 // try to keep the previous mode.
                 int skbLayout = (mInputMode & MASK_SKB_LAYOUT);
                 newInputMode = mInputMode;
+                Log.i(TAG, "requestInputWithSkb:: 4");
                 if (0 == skbLayout) {
                     if ((mInputMode & MASK_LANGUAGE) == MASK_LANGUAGE_CN) {
                         newInputMode = MODE_SKB_CHINESE;
+                        Log.i(TAG, "requestInputWithSkb:: MODE_SKB_CHINESE 5 ...");
                     } else {
                         newInputMode = MODE_SKB_ENGLISH_LOWER;
+                        Log.i(TAG, "requestInputWithSkb:: 6");
                     }
                 }
             }
@@ -621,16 +636,19 @@ public class InputModeSwitcher {
             // Try to keep the previous mode.
             int skbLayout = (mInputMode & MASK_SKB_LAYOUT);
             newInputMode = mInputMode;
+            Log.i(TAG, "requestInputWithSkb:: 7");
             if (0 == skbLayout) {
                 if ((mInputMode & MASK_LANGUAGE) == MASK_LANGUAGE_CN) {
                     newInputMode = MODE_SKB_CHINESE;
+                    Log.i(TAG, "requestInputWithSkb:: MODE_SKB_CHINESE 8 ...");
                 } else {
                     newInputMode = MODE_SKB_ENGLISH_LOWER;
+                    Log.i(TAG, "requestInputWithSkb:: 9");
                 }
             }
             break;
         }
-
+        Log.i(TAG, "requestInputWithSkb:: newInputMode="+newInputMode);
         mEditorInfo = editorInfo;
         saveInputMode(newInputMode);
         prepareToggleStates(true);
