@@ -39,4 +39,4 @@ captures/
 .idea/workspace.xml
 .idea/
 # Keystore files
-*.jks
+#*.jks
