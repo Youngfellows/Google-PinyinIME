@@ -47,6 +47,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
@@ -1287,6 +1288,10 @@ public class PinyinIME extends InputMethodService {
 
         public void run() {
             mCandidatesContainer.getLocationInWindow(mParentLocation);
+            Log.d(TAG, "location:: mParentLocation[0]="+mParentLocation[0]);
+            Log.d(TAG, "location:: mParentLocation[1]="+mParentLocation[1]);
+            Log.d(TAG, "location:: mFloatingWindow.getWidth()="+mFloatingWindow.getWidth());
+            Log.d(TAG, "location:: mFloatingWindow.getHeight()="+mFloatingWindow.getHeight());
 
             if (!mFloatingWindow.isShowing()) {
                 mFloatingWindow.showAtLocation(mCandidatesContainer,
@@ -1826,7 +1831,9 @@ public class PinyinIME extends InputMethodService {
                             for (int i = 0; i < length(); i++)
                                 mPyBuf[i] = (byte) charAt(i);
                             mPyBuf[length()] = 0;
-
+                            String str = new String(mPyBuf);
+                            Log.d(TAG, "chooseDecodingCandidate:: mPyBuf:" + str);
+                            Log.i(TAG, "chooseDecodingCandidate:: mPosDelSpl:" + mPosDelSpl);
                             if (mPosDelSpl < 0) {
                                 totalChoicesNum = mIPinyinDecoderService
                                         .imSearch(mPyBuf, length());
@@ -1869,7 +1876,7 @@ public class PinyinIME extends InputMethodService {
 
                 mFullSent = mIPinyinDecoderService.imGetChoice(0);
                 mFixedLen = mIPinyinDecoderService.imGetFixedLen();
-                Log.w(TAG, "updateDecInfoForSearch: mSplStart:" + mSplStart);
+                Log.w(TAG, "updateDecInfoForSearch: mSplStart:" + Arrays.toString(mSplStart));
                 Log.w(TAG, "updateDecInfoForSearch: pyStr:" + pyStr);
                 Log.w(TAG, "updateDecInfoForSearch: mFullSent:" + mFullSent);
 
@@ -1971,9 +1978,11 @@ public class PinyinIME extends InputMethodService {
                 if (ImeState.STATE_INPUT == mImeState ||
                         ImeState.STATE_IDLE == mImeState ||
                         ImeState.STATE_COMPOSING == mImeState) {
+                    Log.i(TAG, "getCandiagtesForCache:: imGetChoiceList");
                     newList = mIPinyinDecoderService.imGetChoiceList(
                             fetchStart, fetchSize, mFixedLen);
                 } else if (ImeState.STATE_PREDICT == mImeState) {
+                    Log.i(TAG, "getCandiagtesForCache:: imGetPredictList");
                     newList = mIPinyinDecoderService.imGetPredictList(
                             fetchStart, fetchSize);
                 } else if (ImeState.STATE_APP_COMPLETION == mImeState) {

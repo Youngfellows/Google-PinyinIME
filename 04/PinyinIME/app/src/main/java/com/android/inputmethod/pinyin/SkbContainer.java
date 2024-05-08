@@ -275,6 +275,7 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
         if (null == mSkbFlipper) {
             mSkbFlipper = (ViewFlipper) findViewById(R.id.alpha_floatable);
         }
+        // 主键盘视图
         mMajorView = (SoftKeyboardView) mSkbFlipper.getChildAt(0);
 
         SoftKeyboard majorSkb = null;

@@ -36,7 +36,7 @@ import android.util.Log;
  * service so that both IME and IME-syncer can use it.
  */
 public class PinyinDecoderService extends Service {
-    private String TAG = this.getClass().getSimpleName();
+    private final static String TAG = "PinyinDecoderService";
     native static boolean nativeImOpenDecoder(byte fn_sys_dict[],
             byte fn_usr_dict[]);
 
@@ -106,7 +106,7 @@ public class PinyinDecoderService extends Service {
         try {
             System.loadLibrary("jni_pinyinime");
         } catch (UnsatisfiedLinkError ule) {
-            Log.e("PinyinDecoderService",
+            Log.e(TAG,
                     "WARNING: Could not load jni_pinyinime natives");
         }
     }
@@ -133,8 +133,7 @@ public class PinyinDecoderService extends Service {
         AssetFileDescriptor afd = getResources().openRawResourceFd(
                 R.raw.dict_pinyin);
         if (Environment.getInstance().needDebug()) {
-            Log
-                    .i("foo", "Dict: start=" + afd.getStartOffset()
+            Log.i(TAG, "Dict: start=" + afd.getStartOffset()
                             + ", length=" + afd.getLength() + ", fd="
                             + afd.getParcelFileDescriptor());
         }
@@ -151,14 +150,18 @@ public class PinyinDecoderService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate:: ");
         mUsr_dict_file = getFileStreamPath("usr_dict.dat").getPath();
+        Log.i(TAG, "onCreate:: mUsr_dict_file=" + mUsr_dict_file);
         // This is a hack to make sure our "files" directory has been
         // created.
         try {
             openFileOutput("dummy", 0).close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.e(TAG, "onCreate: " + e.getMessage());
         } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(TAG, "onCreate: " + e.getMessage());
         }
 
         initPinyinEngine();
