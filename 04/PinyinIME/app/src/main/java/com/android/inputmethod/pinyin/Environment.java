@@ -33,7 +33,8 @@ public class Environment {
     /**
      * The key height for portrait mode. It is relative to the screen height.
      */
-    private static final float KEY_HEIGHT_RATIO_PORTRAIT = 0.105f;
+    //private static final float KEY_HEIGHT_RATIO_PORTRAIT = 0.105f;
+    private static final float KEY_HEIGHT_RATIO_PORTRAIT = 0.085f;
 
     /**
      * The key height for landscape mode. It is relative to the screen height.
@@ -45,7 +46,8 @@ public class Environment {
      * The height of the candidates area for portrait mode. It is relative to
      * screen height.
      */
-    private static final float CANDIDATES_AREA_HEIGHT_RATIO_PORTRAIT = 0.084f;
+    //private static final float CANDIDATES_AREA_HEIGHT_RATIO_PORTRAIT = 0.084f;
+    private static final float CANDIDATES_AREA_HEIGHT_RATIO_PORTRAIT = 0.054f;
 
     /**
      * The height of the candidates area for portrait mode. It is relative to
@@ -58,42 +60,48 @@ public class Environment {
      * How much should the balloon width be larger than width of the real key.
      * It is relative to the smaller one of screen width and height.
      */
-    private static final float KEY_BALLOON_WIDTH_PLUS_RATIO = 0.08f;
+    //private static final float KEY_BALLOON_WIDTH_PLUS_RATIO = 0.08f;
+    private static final float KEY_BALLOON_WIDTH_PLUS_RATIO = 0.07f;
     private static final float KEY_BALLOON_WIDTH_PLUS_RATIO_LANDSCAPE = 0.04f;
 
     /**
      * How much should the balloon height be larger than that of the real key.
      * It is relative to the smaller one of screen width and height.
      */
-    private static final float KEY_BALLOON_HEIGHT_PLUS_RATIO = 0.07f;
+    //private static final float KEY_BALLOON_HEIGHT_PLUS_RATIO = 0.07f;
+    private static final float KEY_BALLOON_HEIGHT_PLUS_RATIO = 0.03f;
     private static final float KEY_BALLOON_HEIGHT_PLUS_RATIO_LANDSCAPE = 0.03f;
 
     /**
      * The text size for normal keys. It is relative to the smaller one of
      * screen width and height.
      */
-    private static final float NORMAL_KEY_TEXT_SIZE_RATIO = 0.075f;
+    //private static final float NORMAL_KEY_TEXT_SIZE_RATIO = 0.075f;
+    private static final float NORMAL_KEY_TEXT_SIZE_RATIO = 0.045f;
     private static final float NORMAL_KEY_TEXT_SIZE_RATIO_LANDSCAPE = 0.035f;
 
     /**
      * The text size for function keys. It is relative to the smaller one of
      * screen width and height.
      */
-    private static final float FUNCTION_KEY_TEXT_SIZE_RATIO = 0.055f;
+    //private static final float FUNCTION_KEY_TEXT_SIZE_RATIO = 0.055f;
+    private static final float FUNCTION_KEY_TEXT_SIZE_RATIO = 0.035f;
     private static final float FUNCTION_KEY_TEXT_SIZE_RATIO_LANDSCAPE = 0.035f;
 
     /**
      * The text size balloons of normal keys. It is relative to the smaller one
      * of screen width and height.
      */
-    private static final float NORMAL_BALLOON_TEXT_SIZE_RATIO = 0.14f;
+    //private static final float NORMAL_BALLOON_TEXT_SIZE_RATIO = 0.14f;
+    private static final float NORMAL_BALLOON_TEXT_SIZE_RATIO = 0.1f;
     private static final float NORMAL_BALLOON_TEXT_SIZE_RATIO_LANDSCAPE = 0.1f;
 
     /**
      * The text size balloons of function keys. It is relative to the smaller
      * one of screen width and height.
      */
-    private static final float FUNCTION_BALLOON_TEXT_SIZE_RATIO = 0.085f;
+    //private static final float FUNCTION_BALLOON_TEXT_SIZE_RATIO = 0.085f;
+    private static final float FUNCTION_BALLOON_TEXT_SIZE_RATIO = 0.055f;
     private static final float FUNCTION_BALLOON_TEXT_SIZE_RATIO_LANDSCAPE = 0.055f;
 
     /**
