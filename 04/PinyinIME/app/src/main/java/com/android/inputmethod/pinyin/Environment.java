@@ -18,6 +18,7 @@ package com.android.inputmethod.pinyin;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -28,6 +29,7 @@ import android.view.WindowManager;
  * input method can work even when screen size is changed.
  */
 public class Environment {
+    private String TAG = this.getClass().getSimpleName();
     /**
      * The key height for portrait mode. It is relative to the screen height.
      */
@@ -36,7 +38,8 @@ public class Environment {
     /**
      * The key height for landscape mode. It is relative to the screen height.
      */
-    private static final float KEY_HEIGHT_RATIO_LANDSCAPE = 0.147f;
+    //private static final float KEY_HEIGHT_RATIO_LANDSCAPE = 0.147f;
+    private static final float KEY_HEIGHT_RATIO_LANDSCAPE = 0.110f;
 
     /**
      * The height of the candidates area for portrait mode. It is relative to
@@ -48,43 +51,50 @@ public class Environment {
      * The height of the candidates area for portrait mode. It is relative to
      * screen height.
      */
-    private static final float CANDIDATES_AREA_HEIGHT_RATIO_LANDSCAPE = 0.125f;
+    //private static final float CANDIDATES_AREA_HEIGHT_RATIO_LANDSCAPE = 0.125f;
+    private static final float CANDIDATES_AREA_HEIGHT_RATIO_LANDSCAPE = 0.075f;
 
     /**
      * How much should the balloon width be larger than width of the real key.
      * It is relative to the smaller one of screen width and height.
      */
     private static final float KEY_BALLOON_WIDTH_PLUS_RATIO = 0.08f;
+    private static final float KEY_BALLOON_WIDTH_PLUS_RATIO_LANDSCAPE = 0.04f;
 
     /**
      * How much should the balloon height be larger than that of the real key.
      * It is relative to the smaller one of screen width and height.
      */
     private static final float KEY_BALLOON_HEIGHT_PLUS_RATIO = 0.07f;
+    private static final float KEY_BALLOON_HEIGHT_PLUS_RATIO_LANDSCAPE = 0.03f;
 
     /**
      * The text size for normal keys. It is relative to the smaller one of
      * screen width and height.
      */
     private static final float NORMAL_KEY_TEXT_SIZE_RATIO = 0.075f;
+    private static final float NORMAL_KEY_TEXT_SIZE_RATIO_LANDSCAPE = 0.035f;
 
     /**
      * The text size for function keys. It is relative to the smaller one of
      * screen width and height.
      */
     private static final float FUNCTION_KEY_TEXT_SIZE_RATIO = 0.055f;
+    private static final float FUNCTION_KEY_TEXT_SIZE_RATIO_LANDSCAPE = 0.035f;
 
     /**
      * The text size balloons of normal keys. It is relative to the smaller one
      * of screen width and height.
      */
     private static final float NORMAL_BALLOON_TEXT_SIZE_RATIO = 0.14f;
+    private static final float NORMAL_BALLOON_TEXT_SIZE_RATIO_LANDSCAPE = 0.1f;
 
     /**
      * The text size balloons of function keys. It is relative to the smaller
      * one of screen width and height.
      */
     private static final float FUNCTION_BALLOON_TEXT_SIZE_RATIO = 0.085f;
+    private static final float FUNCTION_BALLOON_TEXT_SIZE_RATIO_LANDSCAPE = 0.055f;
 
     /**
      * The configurations are managed in a singleton.
@@ -121,23 +131,45 @@ public class Environment {
             Display d = wm.getDefaultDisplay();
             mScreenWidth = d.getWidth();
             mScreenHeight = d.getHeight();
+            Log.i(TAG, "onConfigurationChanged:: mScreenWidth=" + mScreenWidth);
+            Log.i(TAG, "onConfigurationChanged:: mScreenHeight=" + mScreenHeight);
 
             int scale;
-            if (mScreenHeight > mScreenWidth) {
+            if (mScreenHeight > mScreenWidth) {//竖屏
                 mKeyHeight = (int) (mScreenHeight * KEY_HEIGHT_RATIO_PORTRAIT);
                 mCandidatesAreaHeight = (int) (mScreenHeight * CANDIDATES_AREA_HEIGHT_RATIO_PORTRAIT);
                 scale = mScreenWidth;
-            } else {
+            } else {//横屏
+                Log.i(TAG, "onConfigurationChanged:: landscape");
                 mKeyHeight = (int) (mScreenHeight * KEY_HEIGHT_RATIO_LANDSCAPE);
                 mCandidatesAreaHeight = (int) (mScreenHeight * CANDIDATES_AREA_HEIGHT_RATIO_LANDSCAPE);
                 scale = mScreenHeight;
             }
-            mNormalKeyTextSize = (int) (scale * NORMAL_KEY_TEXT_SIZE_RATIO);
-            mFunctionKeyTextSize = (int) (scale * FUNCTION_KEY_TEXT_SIZE_RATIO);
-            mNormalBalloonTextSize = (int) (scale * NORMAL_BALLOON_TEXT_SIZE_RATIO);
-            mFunctionBalloonTextSize = (int) (scale * FUNCTION_BALLOON_TEXT_SIZE_RATIO);
-            mKeyBalloonWidthPlus = (int) (scale * KEY_BALLOON_WIDTH_PLUS_RATIO);
-            mKeyBalloonHeightPlus = (int) (scale * KEY_BALLOON_HEIGHT_PLUS_RATIO);
+            if (mScreenHeight > mScreenWidth) {//竖屏
+                mNormalKeyTextSize = (int) (scale * NORMAL_KEY_TEXT_SIZE_RATIO);
+                mFunctionKeyTextSize = (int) (scale * FUNCTION_KEY_TEXT_SIZE_RATIO);
+                mNormalBalloonTextSize = (int) (scale * NORMAL_BALLOON_TEXT_SIZE_RATIO);
+                mFunctionBalloonTextSize = (int) (scale * FUNCTION_BALLOON_TEXT_SIZE_RATIO);
+                mKeyBalloonWidthPlus = (int) (scale * KEY_BALLOON_WIDTH_PLUS_RATIO);
+                mKeyBalloonHeightPlus = (int) (scale * KEY_BALLOON_HEIGHT_PLUS_RATIO);
+            } else {//横屏
+                mNormalKeyTextSize = (int) (scale * NORMAL_KEY_TEXT_SIZE_RATIO_LANDSCAPE);
+                mFunctionKeyTextSize = (int) (scale * FUNCTION_KEY_TEXT_SIZE_RATIO_LANDSCAPE);
+                mNormalBalloonTextSize = (int) (scale * NORMAL_BALLOON_TEXT_SIZE_RATIO_LANDSCAPE);
+                mFunctionBalloonTextSize = (int) (scale * FUNCTION_BALLOON_TEXT_SIZE_RATIO_LANDSCAPE);
+                mKeyBalloonWidthPlus = (int) (scale * KEY_BALLOON_WIDTH_PLUS_RATIO_LANDSCAPE);
+                mKeyBalloonHeightPlus = (int) (scale * KEY_BALLOON_HEIGHT_PLUS_RATIO_LANDSCAPE);
+            }
+
+            Log.i(TAG, "onConfigurationChanged:: scale=" + scale);
+            Log.i(TAG, "onConfigurationChanged:: mKeyHeight=" + mKeyHeight);
+            Log.i(TAG, "onConfigurationChanged:: mCandidatesAreaHeight=" + mCandidatesAreaHeight);
+            Log.i(TAG, "onConfigurationChanged:: mNormalKeyTextSize=" + mNormalKeyTextSize);
+            Log.i(TAG, "onConfigurationChanged:: mFunctionKeyTextSize=" + mFunctionKeyTextSize);
+            Log.i(TAG, "onConfigurationChanged:: mNormalBalloonTextSize=" + mNormalBalloonTextSize);
+            Log.i(TAG, "onConfigurationChanged:: mFunctionBalloonTextSize=" + mFunctionBalloonTextSize);
+            Log.i(TAG, "onConfigurationChanged:: mKeyBalloonWidthPlus=" + mKeyBalloonWidthPlus);
+            Log.i(TAG, "onConfigurationChanged:: mKeyBalloonHeightPlus=" + mKeyBalloonHeightPlus);
         }
 
         mConfig.updateFrom(newConfig);
